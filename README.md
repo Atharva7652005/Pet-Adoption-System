@@ -12,11 +12,11 @@ A Django-based web application that connects pet owners and adopters, streamlini
   - Manage pet listings (Update/Delete)
 - 🐰 Customers can:
   - View available pets
-  - Contact sellers for adoption
+  - Request sellers for adoption
 - 🔐 Role-based access (Sellers vs Customers)
 - 📦 Admin panel for full control
 - 📸 Upload pet images
-- 🔍 Search and filter pets by type, age, location, etc.
+- 🔍 Search and filter pets by type, age, etc.
 
 ---
 
