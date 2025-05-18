@@ -1,0 +1,389 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - PetAdopt</title>
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static "pet_icon.png" %}">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="/">
+        <i class="fas fa-paw text-warning me-2"></i>
+        <span class="fw-bold text-primary">Parivartan</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/list">Find a Pet</a>
+          </li>
+          {% if user.is_superuser%}
+          <li class="nav-item">
+            <a class="nav-link" href="/adoption">Adoption Process</a>
+          </li>
+          {% endif %}
+          <li class="nav-item">
+            <a class="nav-link" href="#footer">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/contact">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/myfavs">Favourites</a>
+          </li>
+        </ul>
+        <div class="d-flex">
+          {% if user.is_superuser%}
+          <a href="/mynotifys" class="position-relative text-decoration-none me-3">
+            <i class="fas fa-bell fs-4" style="color: transparent; -webkit-text-stroke: 1px black; margin-top:5px;"></i>
+            <span class="position-absolute top-0 start-100 translate-middle bg-success border border-light rounded-circle" style="width:10px; height:10px;"></span>
+          </a>
+          {% endif %}
+          {% if user.is_authenticated %}
+            <a href="/logout" class="btn btn-outline-primary me-2">Logout</a>
+          {% else %}
+            <a href="/login" class="btn btn-outline-primary me-2">Login</a>
+            <a href="/signup" class="btn btn-primary">Sign Up</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Banner -->
+  <section class="bg-warning py-4 mb-5">
+    <div class="container text-center">
+      <h1 class="display-5 fw-bold">Contact Us</h1>
+      <p class="lead">We're here to help with any questions about pet adoption.</p>
+    </div>
+  </section>
+
+  <div class="container mb-5">
+    <div class="row g-5">
+      <!-- Contact Information -->
+      <div class="col-lg-5">
+        <div class="card shadow-sm h-100">
+          <div class="card-body p-4">
+            <h3 class="mb-4">Get in Touch</h3>
+            
+            <div class="d-flex mb-4">
+              <div class="flex-shrink-0 me-3">
+                <div class="bg-warning bg-opacity-10 p-3 rounded-circle text-warning">
+                  <i class="fas fa-map-marker-alt"></i>
+                </div>
+              </div>
+              <div>
+                <h5>Our Location</h5>
+                <p class="text-muted mb-0">123 Pet Street<br>Pawsville, CA 90210</p>
+              </div>
+            </div>
+            
+            <div class="d-flex mb-4">
+              <div class="flex-shrink-0 me-3">
+                <div class="bg-warning bg-opacity-10 p-3 rounded-circle text-warning">
+                  <i class="fas fa-phone-alt"></i>
+                </div>
+              </div>
+              <div>
+                <h5>Phone Number</h5>
+                <p class="text-muted mb-0">Main: (123) 456-7890<br>Adoption Hotline: (123) 456-7891</p>
+              </div>
+            </div>
+            
+            <div class="d-flex mb-4">
+              <div class="flex-shrink-0 me-3">
+                <div class="bg-warning bg-opacity-10 p-3 rounded-circle text-warning">
+                  <i class="fas fa-envelope"></i>
+                </div>
+              </div>
+              <div>
+                <h5>Email Address</h5>
+                <p class="text-muted mb-0">info@petadopt.com<br>adoptions@petadopt.com</p>
+              </div>
+            </div>
+            
+            <div class="d-flex mb-4">
+              <div class="flex-shrink-0 me-3">
+                <div class="bg-warning bg-opacity-10 p-3 rounded-circle text-warning">
+                  <i class="fas fa-clock"></i>
+                </div>
+              </div>
+              <div>
+                <h5>Hours of Operation</h5>
+                <p class="text-muted mb-0">
+                  Monday - Friday: 9:00 AM - 6:00 PM<br>
+                  Saturday: 10:00 AM - 5:00 PM<br>
+                  Sunday: 12:00 PM - 4:00 PM
+                </p>
+              </div>
+            </div>
+            
+            <div class="mt-4">
+              <h5>Follow Us</h5>
+              <div class="d-flex gap-3 mt-3">
+                <a href="#" class="btn btn-outline-warning rounded-circle">
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="btn btn-outline-warning rounded-circle">
+                  <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="btn btn-outline-warning rounded-circle">
+                  <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="btn btn-outline-warning rounded-circle">
+                  <i class="fab fa-youtube"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Contact Form -->
+      <div class="col-lg-7">
+        <div class="card shadow-sm">
+          <div class="card-body p-4">
+            <h3 class="mb-4">Send Us a Message</h3>
+            
+            <form id="contactForm" method="POST">
+              {% csrf_token %}
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="name" class="form-label">Your Name <span class="text-danger">*</span></label>
+                  <input type="text" name="contact_name" class="form-control" id="name" required>
+                  <div class="invalid-feedback">
+                    Please provide your name.
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
+                  <input type="email" name="contact_email" class="form-control" id="email" required>
+                  <div class="invalid-feedback">
+                    Please provide a valid email address.
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <label for="phone" class="form-label">Phone Number</label>
+                  <input type="tel" name="contact_phoneno" class="form-control" id="phone">
+                </div>
+                
+                <div class="col-md-6">
+                  <label for="subject" class="form-label">Subject <span class="text-danger">*</span></label>
+                  <select class="form-select" name="contact_subject" id="subject" required>
+                    <option value="" selected disabled>Select a subject</option>
+                    <option>Adoption Inquiry</option>
+                    <option>Donation Information</option>
+                    <option>Volunteer Opportunities</option>
+                    <option>Feedback</option>
+                    <option >Other</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    Please select a subject.
+                  </div>
+                </div>
+                
+                <div class="col-12">
+                  <label for="message" class="form-label">Message <span class="text-danger">*</span></label>
+                  <textarea class="form-control" name="contact_message" id="message" rows="5" required></textarea>
+                  <div class="invalid-feedback">
+                    Please enter your message.
+                  </div>
+                </div>
+                
+                <div class="col-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="newsletter">
+                    <label class="form-check-label" for="newsletter">
+                      Subscribe to our newsletter for updates on available pets and events
+                    </label>
+                  </div>
+                </div>
+                
+                <div class="col-12">
+                  <input type="submit" class="btn btn-warning btn-lg" value="Send Message">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        
+        <!-- FAQ Section -->
+        <div class="card shadow-sm mt-4">
+          <div class="card-body p-4">
+            <h3 class="mb-4">Frequently Asked Questions</h3>
+            
+            <div class="accordion" id="contactFaqAccordion">
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqOne">
+                    How do I adopt a pet from PetAdopt?
+                  </button>
+                </h2>
+                <div id="faqOne" class="accordion-collapse collapse show" data-bs-parent="#contactFaqAccordion">
+                  <div class="accordion-body">
+                    To adopt a pet, browse our available pets, submit an adoption application, and our team will review your application. If approved, you'll be invited for a meet and greet with your potential new pet.
+                  </div>
+                </div>
+              </div>
+              
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqTwo">
+                    What are the adoption fees?
+                  </button>
+                </h2>
+                <div id="faqTwo" class="accordion-collapse collapse" data-bs-parent="#contactFaqAccordion">
+                  <div class="accordion-body">
+                    Adoption fees vary depending on the type and age of the pet. Dogs typically range from $150-$300, cats from $75-$150, and small animals from $25-$75. All adoption fees include vaccinations, spay/neuter, and microchipping.
+                  </div>
+                </div>
+              </div>
+              
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqThree">
+                    How can I volunteer or foster pets?
+                  </button>
+                </h2>
+                <div id="faqThree" class="accordion-collapse collapse" data-bs-parent="#contactFaqAccordion">
+                  <div class="accordion-body">
+                    We're always looking for volunteers and foster families! Please fill out our volunteer application form or foster application form on our website, and our volunteer coordinator will contact you with more information.
+                  </div>
+                </div>
+              </div>
+              
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqFour">
+                    How long does the adoption process take?
+                  </button>
+                </h2>
+                <div id="faqFour" class="accordion-collapse collapse" data-bs-parent="#contactFaqAccordion">
+                  <div class="accordion-body">
+                    The adoption process typically takes 3-7 days from application to bringing your pet home. This includes application review, reference checks, meet and greet, and finalizing the adoption paperwork.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Map Section -->
+    <div class="card shadow-sm mt-5">
+      <div class="card-body p-0">
+        <div class="row g-0">
+          <div class="col-md-4 bg-warning bg-opacity-10 p-4">
+            <h3 class="mb-3">Visit Our Shelter</h3>
+            <p>We'd love to meet you in person! Come visit our shelter to meet our adorable pets waiting for their forever homes.</p>
+            <p class="mb-0"><strong>Address:</strong><br>123 Pet Street<br>Pawsville, CA 90210</p>
+          </div>
+          <div class="col-md-8">
+            <div class="ratio ratio-16x9">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.7152203498383!2d-118.24368848478758!3d34.05392628060504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c648fa1d4803%3A0xddf0587c909f5d1c!2sLos%20Angeles%2C%20CA!5e0!3m2!1sen!2sus!4v1650000000000!5m2!1sen!2sus" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white py-5 mt-5" id="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 mb-4">
+          <a href="../index.html" class="d-flex align-items-center text-white text-decoration-none mb-3">
+            <i class="fas fa-paw text-warning me-2"></i>
+            <span class="fw-bold h4 mb-0">PetAdopt</span>
+          </a>
+          <p>Connecting loving homes with pets in need since 2010.</p>
+          <div class="d-flex gap-3 mt-3">
+            <a href="#" class="text-white"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="text-white"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+        <div class="col-md-3 mb-4">
+          <h5 class="mb-3">Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="/list" class="text-white-50">Find a Pet</a></li>
+            <li><a href="#footer" class="text-white-50">About Us</a></li>
+            <li><a href="/contact" class="text-white-50">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3 mb-4">
+          <h5 class="mb-3">Resources</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-white-50">Pet Preference Survey</a></li>
+            <li><a href="#" class="text-white-50">Feedback</a></li>
+            <li><a href="#" class="text-white-50">Events</a></li>
+            <li><a href="#" class="text-white-50">Donate</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3 mb-4">
+          <h5 class="mb-3">Contact Us</h5>
+          <address class="text-white-50">
+            <p>123 Pet Street</p>
+            <p>Pawsville, CA 90210</p>
+            <p>Phone: (123) 456-7890</p>
+            <p>Email: info@petadopt.com</p>
+          </address>
+        </div>
+      </div>
+      <div class="border-top border-secondary pt-4 mt-4 text-center text-white-50">
+        <p>&copy; 2023 PetAdopt. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom JS -->
+  <script src="../js/main.js"></script>
+  <script>
+    {% if alert %}
+      alert("Your Feedback is Submitted")
+    {% endif %}
+    // Form validation
+    (function() {
+      'use strict';
+      
+      // Fetch all forms we want to apply validation to
+      var forms = document.querySelectorAll('.needs-validation');
+      
+      // Loop over them and prevent submission
+      Array.prototype.slice.call(forms).forEach(function(form) {
+        form.addEventListener('submit', function(event) {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          } else {
+            event.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            form.reset();
+          }
+          
+          form.classList.add('was-validated');
+        }, false);
+      });
+    })();
+  </script>
+</body>
+</html>
+

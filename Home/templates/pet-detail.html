@@ -1,0 +1,363 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pet Details - PetAdopt</title>
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static "pet_icon.png" %}">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="/">
+        <i class="fas fa-paw text-warning me-2"></i>
+        <span class="fw-bold text-primary">Parivartan</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/list">Find a Pet</a>
+          </li>
+          {% if user.is_superuser%}
+          <li class="nav-item">
+            <a class="nav-link" href="/adoption">Adoption Process</a>
+          </li>
+          {% endif %}
+          <li class="nav-item">
+            <a class="nav-link" href="#footer">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contact">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/myfavs">Favourites</a>
+          </li>
+        </ul>
+        <div class="d-flex">
+          {% if user.is_superuser%}
+          <a href="/mynotifys" class="position-relative text-decoration-none me-3">
+            <i class="fas fa-bell fs-4" style="color: transparent; -webkit-text-stroke: 1px black; margin-top:5px;"></i>
+            <span class="position-absolute top-0 start-100 translate-middle bg-success border border-light rounded-circle" style="width:10px; height:10px;"></span>
+          </a>
+          {% endif %}
+          {% if user.is_authenticated %}
+          <a href="/logout" class="btn btn-outline-primary me-2">Logout</a>
+          {% else %}
+          <a href="/login" class="btn btn-outline-primary me-2">Login</a>
+          <a href="/signup" class="btn btn-primary">Sign Up</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container py-5">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="/list">Pets</a></li>
+        <li class="breadcrumb-item active" aria-current="page" id="pet-name-breadcrumb">Buddy</li>
+      </ol>
+    </nav>
+
+    <div class="card shadow-sm mb-5">
+      <div class="card-body p-0">
+        <div class="row g-0">
+          <!-- Pet Images -->
+          <div class="col-lg-6">
+            <div class="pet-gallery p-4">
+              <div class="main-image mb-3">
+                <img src="{{Pet.pet_photo.url}}" style="height:500px;width:550px;" id="mainPetImage" class="img-fluid rounded" alt="Buddy">
+              </div>
+            </div>
+          </div>
+
+          <!-- Pet Details -->
+          <div class="col-lg-6">
+            <div class="p-4">
+              <div class="d-flex justify-content-between align-items-start mb-3">
+                <h1 class="h2 mb-0" id="pet-name">{{Pet.pet_name}}</h1>
+                <a href="{% url 'Add_Favourite' Pet.id %}" class="btn btn-outline-warning rounded-circle favorite-btn">
+                  <i class="far fa-heart"></i>
+                </a>
+              </div>
+
+              <div class="mb-3">
+                <span class="badge bg-warning bg-opacity-10 text-warning me-1">{{Pet.pet_type}}</span>
+                <span class="badge bg-warning bg-opacity-10 text-warning me-1">{{Pet.pet_age_type}}</span>
+                <span class="badge bg-warning bg-opacity-10 text-warning me-1">{{Pet.pet_gender}}</span>
+                <span class="badge bg-warning bg-opacity-10 text-warning">{{Pet.pet_size}}</span>
+              </div>
+
+              <div class="mb-4">
+                <div class="d-flex align-items-center text-muted mb-2">
+                  <i class="fas fa-calendar-alt me-2 text-warning"></i>
+                  <span>Available since {{Pet.timestamp}}</span>
+                </div>
+                <div class="d-flex align-items-center text-muted">
+                  <i class="fas fa-map-marker-alt me-2 text-warning"></i>
+                  <span>Parivartan Pet Home </span>
+                </div>
+              </div>
+
+              <div class="mb-4">
+                <h5>About {{Pet.pet_name}}</h5>
+                <p>{{Pet.pet_desc}}</p>
+              </div>
+
+              <div class="row mb-4">
+                <div class="col-md-6">
+                  <h5>Good with:</h5>
+                  <ul class="list-unstyled">
+                    <li class="mb-2">
+                      <i class="fas fa-check text-success me-2"></i>
+                      <span>Children</span>
+                    </li>
+                    <li class="mb-2">
+                      <i class="fas fa-check text-success me-2"></i>
+                      <span>Dogs</span>
+                    </li>
+                    <li>
+                      <i class="fas fa-times text-danger me-2"></i>
+                      <span>Cats</span>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-md-6">
+                  <h5>Health:</h5>
+                  <ul class="list-unstyled">
+                    <li class="mb-2">
+                      <i class="fas fa-check text-success me-2"></i>
+                      <span>Vaccinated</span>
+                    </li>
+                    <li class="mb-2">
+                      <i class="fas fa-check text-success me-2"></i>
+                      <span>Neutered</span>
+                    </li>
+                    <li>
+                      <i class="fas fa-check text-success me-2"></i>
+                      <span>Microchipped</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="d-grid gap-2">
+                <a id="adopt" onclick="alert('Request for Adoption for Pet name {{Pet.pet_name}} sent Successfully')" href="/notification/{{Pet.id}}/" class="btn btn-warning btn-lg">
+                  <i class="fas fa-heart me-2"></i> Adopt Buddy
+                </a>
+                <a id="meet" onclick="alert('Request for Meeting Scheduled for Pet name {{Pet.pet_name}} sent Successfully')" href="/notification/{{Pet.id}}/" class="btn btn-outline-warning">
+                  Schedule a Meet & Greet
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pet Details Tabs -->
+    <div class="card shadow-sm mb-5">
+      <div class="card-header bg-white p-0">
+        <ul class="nav nav-tabs" id="petDetailTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="details-tab" data-bs-toggle="tab" data-bs-target="#details" type="button" role="tab">Details</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="personality-tab" data-bs-toggle="tab" data-bs-target="#personality" type="button" role="tab">Personality</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="requirements-tab" data-bs-toggle="tab" data-bs-target="#requirements" type="button" role="tab">Requirements</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="faqs-tab" data-bs-toggle="tab" data-bs-target="#faqs" type="button" role="tab">FAQs</button>
+          </li>
+        </ul>
+      </div>
+      <div class="card-body">
+        <div class="tab-content" id="petDetailTabsContent">
+          <div class="tab-pane fade show active" id="details" role="tabpanel">
+            <div class="row">
+              <div class="col-md-6">
+                <h5 class="mb-3">Physical Characteristics</h5>
+                <table class="table">
+                  <tbody>
+                    <tr>
+                      <td class="text-muted">Breed:</td>
+                      <td class="fw-medium">{{Pet.pet_breed}}</td>
+                    </tr>
+                    <tr>
+                      <td class="text-muted">Color:</td>
+                      <td class="fw-medium">{{Pet.pet_color}}</td>
+                    </tr>
+                    <tr>
+                      <td class="text-muted">Age:</td>
+                      <td class="fw-medium">{{Pet.pet_age}} {{Pet.pet_months}}</td>
+                    </tr>
+                    <tr>
+                      <td class="text-muted">Weight:</td>
+                      <td class="fw-medium">{{Pet.pet_size}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-md-6">
+                <h5 class="mb-3">Background</h5>
+                <p>{{Pet.pet_background}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="personality" role="tabpanel">
+            <h5 class="mb-3">Buddy's Personality</h5>
+            <p>Buddy is a young dog with a friendly, outgoing, and playful personality. He loves meeting new people and gets along well with other dogs. Buddy is intelligent and eager to please, making him easy to train. He enjoys playing fetch, going for walks, and cuddling on the couch. Buddy would be perfect for an active family that can provide him with plenty of exercise and attention.</p>
+          </div>
+          <div class="tab-pane fade" id="requirements" role="tabpanel">
+            <h5 class="mb-3">Adoption Requirements</h5>
+            <ul>
+              <li>Valid ID and proof of address</li>
+              <li>Home visit may be required</li>
+              <li>Adoption fee: $150</li>
+              <li>All household members must meet Buddy</li>
+              <li>If renting, landlord approval is required</li>
+            </ul>
+          </div>
+          <div class="tab-pane fade" id="faqs" role="tabpanel">
+            <h5 class="mb-3">Frequently Asked Questions</h5>
+            <div class="accordion" id="petFaqAccordion">
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqOne">
+                    Is Buddy good with children?
+                  </button>
+                </h2>
+                <div id="faqOne" class="accordion-collapse collapse show" data-bs-parent="#petFaqAccordion">
+                  <div class="accordion-body">
+                    Yes, Buddy is great with children of all ages. He's gentle and patient, making him an excellent family pet.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqTwo">
+                    Does Buddy require special care?
+                  </button>
+                </h2>
+                <div id="faqTwo" class="accordion-collapse collapse" data-bs-parent="#petFaqAccordion">
+                  <div class="accordion-body">
+                    No, Buddy doesn't require any special care beyond regular veterinary check-ups and lots of love. He does need daily exercise to keep him happy and healthy.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqThree">
+                    What is the adoption process like?
+                  </button>
+                </h2>
+                <div id="faqThree" class="accordion-collapse collapse" data-bs-parent="#petFaqAccordion">
+                  <div class="accordion-body">
+                    The adoption process involves filling out an application, a meet-and-greet with Buddy, and possibly a home visit. The entire process typically takes 3-7 days.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white py-5 mt-5" id="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 mb-4">
+          <a href="index.html" class="d-flex align-items-center text-white text-decoration-none mb-3">
+            <i class="fas fa-paw text-warning me-2"></i>
+            <span class="fw-bold h4 mb-0">PetAdopt</span>
+          </a>
+          <p>Connecting loving homes with pets in need since 2010.</p>
+          <div class="d-flex gap-3 mt-3">
+            <a href="#" class="text-white"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="text-white"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+        <div class="col-md-3 mb-4">
+          <h5 class="mb-3">Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-white-50">Find a Pet</a></li>
+            <li><a href="#footer" class="text-white-50">About Us</a></li>
+            <li><a href="/contact" class="text-white-50">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3 mb-4">
+          <h5 class="mb-3">Resources</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-white-50">Pet Preference Survey</a></li>
+            <li><a href="#" class="text-white-50">Feedback</a></li>
+            <li><a href="#" class="text-white-50">Events</a></li>
+            <li><a href="#" class="text-white-50">Donate</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3 mb-4">
+          <h5 class="mb-3">Contact Us</h5>
+          <address class="text-white-50">
+            <p>123 Pet Street</p>
+            <p>Pawsville, CA 90210</p>
+            <p>Phone: (123) 456-7890</p>
+            <p>Email: info@petadopt.com</p>
+          </address>
+        </div>
+      </div>
+      <div class="border-top border-secondary pt-4 mt-4 text-center text-white-50">
+        <p>&copy; 2023 PetAdopt. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom JS -->
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Pet image gallery
+      const thumbnails = document.querySelectorAll('.thumbnail');
+      const mainImage = document.getElementById('mainPetImage');
+      
+      thumbnails.forEach(thumbnail => {
+        thumbnail.addEventListener('click', function() {
+          // Update main image
+          mainImage.src = this.getAttribute('data-image');
+          
+          // Update active thumbnail
+          thumbnails.forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+      
+      // Get pet details from URL parameter
+      const urlParams = new URLSearchParams(window.location.search);
+      const petId = urlParams.get('id');
+      
+      // In a real application, you would fetch pet data from a database or API
+      // For this example, we're just using the URL parameter to simulate different pets
+      console.log('Viewing pet with ID:', petId);
+    });
+  </script>
+</body>
+</html>
+
